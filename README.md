@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # ionic Memory Game
 
 Memory game built in Ionic, Angular and Cordova
