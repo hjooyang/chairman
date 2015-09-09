@@ -7,7 +7,7 @@
       $ionicPlatform.ready(function() {
 
               // Check login session
-      $rootScope.$on('$stateChangeStart', function (event, next, current) {
+  /*    $rootScope.$on('$stateChangeStart', function (event, next, current) {
           var userInfo = $cookieStore.get('userInfo');
           if (!userInfo) {
               // user not logged in | redirect to login
@@ -21,7 +21,7 @@
               // $state.go('dashboard');
               $state.go('home');
           } 
-      });
+      });*/
 
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)œ
