@@ -33,6 +33,20 @@
           StatusBar.styleDefault();
         }
       });
+
+/*
+      // Load the Cloudant library.
+      var Cloudant = require('cloudant');
+
+      var me = '83867b96-1589-4ae2-826f-e519c59e6a6c-bluemix '; // Set this to your own account
+      var password = process.env.cloudant_password;
+
+      // Initialize the library with my account.
+      var cloudant = Cloudant({account:me, password:password});
+
+      cloudant.db.list(function(err, allDbs) {
+        console.log('All my databases: %s', allDbs.join(', '))
+      });*/
     })
 
     .config(function($httpProvider) {
@@ -117,6 +131,16 @@
                 url: "/login",
                 templateUrl: "templates/login.html",
                 controller: 'LoginCtrl'
+        })
+         .state('main', {
+          url: '/main',
+          templateUrl: 'templates/main.html',
+          controller: 'MainCtrl'
+        })
+        .state('room-creation', {
+          url: '/room-creation',
+          templateUrl: 'templates/room-creation.html',
+          controller: 'RoomCtrl'
         });
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/login');

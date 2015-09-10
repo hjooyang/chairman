@@ -82,9 +82,17 @@
     };
   }])
 
-  .service('LoginService', ['$q', function ($q) {
+  .service('LoginService', ['$q', '$cacheFactory', function ($q, $cacheFactory) {
+  
+    // Use an internal Cache for storing the List and map the operations to manage that from
+    // Mobile Cloud SDK Calls
+    var cache = $cacheFactory('');
+    var options = {
+        handleAs: 'JSON'
+    };
+
      return {
-        loginUser: function(name, pw) {
+        loginUser: function(username, pw) {
             var deferred = $q.defer();
             var promise = deferred.promise;
  
@@ -102,8 +110,113 @@
                 return promise;
             }
             return promise;
+        },
+        joinUser: function(username, password) {
+
+           // Manage Defer on the Save
+            var defer = $q.defer();
+            var promise = defer.promise;
+
+            // get the Data Service
+            var data = IBMData.getService();
+
+            // Create a new Item instance and then save it to the cloud
+            var user = data.Object.ofType("User", {"username":username, "password":password});
+            console.log('username ', username);
+/*
+            // add the Item to the Cache but we need to replace it when we
+            // get a saved copy back
+            var users = cache.get('users');
+            console.log('users ', users);
+
+            // Check we have some items
+            if (users) {
+                cache.get('users').push(user);
+                console.log('cache push success! ', cache);
+            } else {
+                defer.reject('no users defined');
+            }
+*/
+          console.log('user :: ', user);
+            // Save the Class in the Bluemix Cloud
+            user.save().then(function(saved) {
+                console.log('user save');
+                // Replace the Item
+               // users.forEach(function(user, i) { if (user.get('username') == saved.get('username')) users[i] = saved;});
+                defer.resolve(saved);
+
+            },function(err) {
+                defer.reject(err);
+            });
+
+            promise.success = function(fn) {
+                promise.then(fn);
+                return promise;
+            }
+            promise.error = function(fn) {
+                promise.then(null, fn);
+                return promise;
+            }
+
+            // Return a promise for the async operation of save
+            return promise;
+/*
+            promise.success = function(fn) {
+                promise.then(fn);
+                return promise;
+            }
+            promise.error = function(fn) {
+                promise.then(null, fn);
+                return promise;
+            }
+            // Return a promise for the async operation of save
+            return promise;
+*/
         }
     }
-  }]);
+  }])
+/**
+ * A Service that intialises MBaaS
+ */
+.factory('InitBluemix',
+    function($rootScope, $http, $q) {
+
+        function init() {
+
+            var defer = $q.defer();
+
+            //Load the config from json file
+            $http.get("./bluemix-config.json").success(function(config) {
+                //Initialize SDK
+                IBMBluemix.initialize(config).done(function() {
+
+                    console.log("Sucessful initialisation with Application : " + IBMBluemix.getConfig().getApplicationId());
+
+                    var data = IBMData.initializeService();
+
+                    // Let the user no they have logged in and can do some stuff if they require
+                    console.log("Sucessful initialisation Data Services " );
+
+                    defer.resolve();
+
+                }, function(response) {
+                    console.log("Error:", response);
+                    defer.reject(response);
+                });
+
+                $rootScope.config = config;
+            });
+
+            return defer.promise;
+
+        };
+
+        return {
+            init: function() {
+                return init();
+            }
+        }
+
+    });;
 
 }());

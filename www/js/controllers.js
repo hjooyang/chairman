@@ -235,8 +235,22 @@
 	    };
 	    // END FB Login
 	})
-	.controller('LoginCtrl', ['$scope', 'LoginService','$ionicPopup', '$state', function ($scope, LoginService,$ionicPopup, $state) {
+	.controller('LoginCtrl', ['$rootScope', '$scope', 'LoginService','$ionicPopup', '$state', 'InitBluemix', function ($rootScope, $scope, LoginService,$ionicPopup, $state, InitBluemix) {
 		$scope.data = {};
+
+		    // Init Mobile Cloud SDK and wait for it to configure itself
+		    // Once complete keep a reference to it so we can talk to it later
+		    if (!$rootScope.IBMBluemix) {
+		    	console.log('IBMBluemix exists!');
+		        InitBluemix.init().then(function() {
+		            $rootScope.IBMBluemix = IBMBluemix;
+		            // $scope.loadItems();
+		        });
+		    } else {
+				console.log('No IBMBluemix ');
+		        // load a refresh from the cloud
+		        // $scope.list = ListService.allCache();
+		    }
  
 	    $scope.login = function() {
 	        LoginService.loginUser($scope.data.username, $scope.data.password).success(function(data) {
@@ -248,6 +262,43 @@
 	            });
 	        });
 	    }
+
+	    $scope.join = function() {
+	    	LoginService.joinUser($scope.data.username, $scope.data.password).success(function(data) {
+	    		console.log('joinuser successful');
+	    		$state.go('home');
+	    	}).error(function(data) {
+	    		var alertPopup = $ionicPopup.alert({
+	    			title: 'Login failed!',
+	    			template: 'Please check your credentials!'
+	    		});
+	    	})
+	    }
+
+	    // $scope.login = function() {
+	    //     LoginService.joinUser($scope.data.username, $scope.data.password).success(function(data) {
+	    //         $state.go('home');
+	    //     }).error(function(data) {
+	    //         var alertPopup = $ionicPopup.alert({
+	    //             title: 'Join failed!',
+	    //             template: 'Please check your credentials!'
+	    //         });
+	    //     });
+	    // }
+	}])
+	.controller('MainCtrl', ['$scope', '$state','Settings', function($scope, $state, Settings) {
+		$scope.settings = Settings.getSettings();
+		$scope.theme = Settings.get('theme');
+
+		$scope.createRoom = function() {
+			console.log("create a room");
+			$state.go('room-creation');
+		}
+	}])
+	.controller('RoomCtrl', ['$scope', '$state','Settings', function($scope, $state, Settings) {
+		$scope.settings = Settings.getSettings();
+		$scope.theme = Settings.get('theme');
+
 	}])
 	// .controller('LoginCtrl', function($scope, LoginService) {
 	//     $scope.data = {};
