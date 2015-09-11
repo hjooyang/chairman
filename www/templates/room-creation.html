@@ -13,9 +13,19 @@
 		    </div>
 		    <div class="room-creation-list col"></div>
 
-
+		    <div class="list invite-list">
+		    	<ul class="list">
+		    		<li class="item item-check-box" ng-repeat="friend in friends" >
+		    			<label class="checkbox" >
+		    				<input type="checkbox" checklist-model="friend.username" checklist-value="send-invi"> 
+		    			</label>
+		    			{{friend.username}}
+		    		</li>
+		    	</ul>
+		    </div>
 		</div>
 
 	</ion-content>
 
 </ion-view>
+

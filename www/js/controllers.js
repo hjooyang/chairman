@@ -289,5 +289,12 @@
 		$scope.settings = Settings.getSettings();
 		$scope.theme = Settings.get('theme');
 
+		$scope.friends = [
+			{'username': 'paul'},
+			{'username': 'shirely'},
+			{'username': 'john'},
+			{'username': 'peter'}
+		]
+
 	}])
 }());
