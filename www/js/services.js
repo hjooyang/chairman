@@ -82,7 +82,7 @@
     };
   }])
 
-  .service('LoginService', ['$q', '$cacheFactory', function ($q, $cacheFactory) {
+  .service('LoginService', ['$q', '$cacheFactory', '$cookieStore', function ($q, $cacheFactory, $cookieStore) {
   
     // Use an internal Cache for storing the List and map the operations to manage that from
     // Mobile Cloud SDK Calls
@@ -92,24 +92,40 @@
     };
 
      return {
-        loginUser: function(username, pw) {
-            var deferred = $q.defer();
-            var promise = deferred.promise;
- 
-            if (name == 'user' && pw == 'secret') {
-                deferred.resolve('Welcome ' + name + '!');
-            } else {
-                deferred.reject('Wrong credentials.');
-            }
-            promise.success = function(fn) {
-                promise.then(fn);
-                return promise;
-            }
-            promise.error = function(fn) {
-                promise.then(null, fn);
-                return promise;
-            }
-            return promise;
+        loginUser: function(username, password) {
+
+          var data = IBMData.getService();
+          var deferred = $q.defer();
+          var promise = deferred.promise;
+          
+          var query = data.Query.ofType("User");
+            query.find({username:username}).done(function(user) {
+
+              console.log("username found!! ", username);
+
+              if (password == user[0].get().password) {
+                 var userInfo = {};
+                userInfo.username = username;
+                $cookieStore.put('userInfo', userInfo);
+                deferred.resolve('Welcome ' + username + '!');
+              } else {
+                console.log("Wrong Password! ");
+                deferred.reject();
+              }
+          }, function(err) {
+            console.log(err);
+            deferred.reject(err);
+          });
+
+          promise.success = function(fn) {
+              promise.then(fn);
+              return promise;
+          }
+          promise.error = function(fn) {
+              promise.then(null, fn);
+              return promise;
+          }
+          return promise;
         },
         joinUser: function(username, password) {
 
@@ -160,18 +176,6 @@
 
             // Return a promise for the async operation of save
             return promise;
-/*
-            promise.success = function(fn) {
-                promise.then(fn);
-                return promise;
-            }
-            promise.error = function(fn) {
-                promise.then(null, fn);
-                return promise;
-            }
-            // Return a promise for the async operation of save
-            return promise;
-*/
         }
     }
   }])

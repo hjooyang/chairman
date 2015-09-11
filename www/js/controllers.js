@@ -263,28 +263,18 @@
 	        });
 	    }
 
+
 	    $scope.join = function() {
 	    	LoginService.joinUser($scope.data.username, $scope.data.password).success(function(data) {
 	    		console.log('joinuser successful');
 	    		$state.go('home');
 	    	}).error(function(data) {
 	    		var alertPopup = $ionicPopup.alert({
-	    			title: 'Login failed!',
+	    			title: 'Join failed!',
 	    			template: 'Please check your credentials!'
 	    		});
 	    	})
 	    }
-
-	    // $scope.login = function() {
-	    //     LoginService.joinUser($scope.data.username, $scope.data.password).success(function(data) {
-	    //         $state.go('home');
-	    //     }).error(function(data) {
-	    //         var alertPopup = $ionicPopup.alert({
-	    //             title: 'Join failed!',
-	    //             template: 'Please check your credentials!'
-	    //         });
-	    //     });
-	    // }
 	}])
 	.controller('MainCtrl', ['$scope', '$state','Settings', function($scope, $state, Settings) {
 		$scope.settings = Settings.getSettings();
@@ -300,21 +290,4 @@
 		$scope.theme = Settings.get('theme');
 
 	}])
-	// .controller('LoginCtrl', function($scope, LoginService) {
-	//     $scope.data = {};
-	 
-	//     $scope.login = function() {
-
-	//     	 LoginService.loginUser($scope.data.username, $scope.data.password).success(function(data) {
-	//             $state.go('tab.dash');
-	//         }).error(function(data) {
-	//             var alertPopup = $ionicPopup.alert({
-	//                 title: 'Login failed!',
-	//                 template: 'Please check your credentials!'
-	//             });
-	//         });
-
-	//         console.log("LOGIN user: " + $scope.data.username + " - PW: " + $scope.data.password);
-	//     }
-	// });
 }());

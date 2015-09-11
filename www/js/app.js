@@ -6,8 +6,8 @@
     .run(function($ionicPlatform, $rootScope, $cookieStore, $state) {
       $ionicPlatform.ready(function() {
 
-              // Check login session
-  /*    $rootScope.$on('$stateChangeStart', function (event, next, current) {
+      // Check login session
+      $rootScope.$on('$stateChangeStart', function (event, next, current) {
           var userInfo = $cookieStore.get('userInfo');
           if (!userInfo) {
               // user not logged in | redirect to login
@@ -18,10 +18,10 @@
               }
           } else if (next.name === "login") {
               event.preventDefault();
-              // $state.go('dashboard');
-              $state.go('home');
+               // $state.go('dashboard');
+             $state.go('home');
           } 
-      });*/
+      });
 
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)œ
@@ -33,20 +33,6 @@
           StatusBar.styleDefault();
         }
       });
-
-/*
-      // Load the Cloudant library.
-      var Cloudant = require('cloudant');
-
-      var me = '83867b96-1589-4ae2-826f-e519c59e6a6c-bluemix '; // Set this to your own account
-      var password = process.env.cloudant_password;
-
-      // Initialize the library with my account.
-      var cloudant = Cloudant({account:me, password:password});
-
-      cloudant.db.list(function(err, allDbs) {
-        console.log('All my databases: %s', allDbs.join(', '))
-      });*/
     })
 
     .config(function($httpProvider) {
