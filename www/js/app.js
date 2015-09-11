@@ -19,7 +19,7 @@
           } else if (next.name === "login") {
               event.preventDefault();
                // $state.go('dashboard');
-             $state.go('home');
+             $state.go('main');
           } 
       });
 
