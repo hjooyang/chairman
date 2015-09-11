@@ -3,7 +3,7 @@
 
 	angular.module('memory.controllers', [])
 
-	.controller('AppCtrl', ['$scope', '$ionicModal', '$ionicPopup', '$state', '$cookieStore', '$window', 'Settings', function($scope, $ionicModal, $ionicPopup, $state, $cookieStore, $window, Settings) {
+	.controller('AppCtrl', ['$scope', '$ionicModal', '$ionicPopup', '$state', '$cookieStore', 'Settings', function($scope, $ionicModal, $ionicPopup, $state, $cookieStore, Settings) {
 		Settings.set('gameOn','false');
 		$scope.settings = Settings.getSettings();
 		/*** Settings modal ***/

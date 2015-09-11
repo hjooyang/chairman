@@ -3,12 +3,14 @@
 
   // Ionic Memory Game
   angular.module('memory', ['ionic', 'memory.services', 'memory.directives', 'memory.controllers', 'ngCookies'])
-    .run(function($ionicPlatform, $rootScope, $cookieStore, $state) {
+    .run(function($ionicPlatform, $rootScope, $cookieStore, $state, $window) {
       $ionicPlatform.ready(function() {
 
       // Check login session
       $rootScope.$on('$stateChangeStart', function (event, next, current) {
-          var userInfo = $cookieStore.get('userInfo');
+          // var userInfo = $cookieStore.get('userInfo');
+        //  var userInfo = $window.getItem('userInfo');
+        var userInfo = window.sessionStorage['userInfo'];
           if (!userInfo) {
               // user not logged in | redirect to login
               if (next.name !== "login") {

@@ -106,7 +106,9 @@
               if (password == user[0].get().password) {
                  var userInfo = {};
                 userInfo.username = username;
-                $cookieStore.put('userInfo', userInfo);
+                window.sessionStorage["userInfo"] = JSON.stringify(userInfo)
+                // $cookieStore.put('userInfo', userInfo);
+
                 deferred.resolve('Welcome ' + username + '!');
               } else {
                 console.log("Wrong Password! ");
