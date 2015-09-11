@@ -6,6 +6,7 @@
 	.controller('AppCtrl', ['$scope', '$ionicModal', '$ionicPopup', '$state', '$cookieStore', 'Settings', function($scope, $ionicModal, $ionicPopup, $state, $cookieStore, Settings) {
 		Settings.set('gameOn','false');
 		$scope.settings = Settings.getSettings();
+		$scope.userInfo = window.sessionStorage['userInfo'];
 		/*** Settings modal ***/
 		$scope.showSettings = function() {
 			if(!$scope.settingsModal) {
@@ -71,9 +72,9 @@
 
 		// Logout user
 	    $scope.logout = function () {
-	        $cookieStore.remove("userInfo");
-	        $state.go('welcome');
-	        $window.location.reload();
+			window.sessionStorage.removeItem('userInfo')
+	        $state.go('login');
+	       	// $window.location.reload();
 	    };
 	}])
 
@@ -265,9 +266,11 @@
 
 
 	    $scope.join = function() {
+	    	$state.go('join');
 	    	LoginService.joinUser($scope.data.username, $scope.data.password).success(function(data) {
-	    		console.log('joinuser successful');
-	    		$state.go('home');
+	    		// console.log('joinuser successful');
+	    		// $state.go('home');
+	    		 $state.go('main');
 	    	}).error(function(data) {
 	    		var alertPopup = $ionicPopup.alert({
 	    			title: 'Join failed!',
@@ -285,16 +288,53 @@
 			$state.go('room-creation');
 		}
 	}])
-	.controller('RoomCtrl', ['$scope', '$state','Settings', function($scope, $state, Settings) {
+	.controller('RoomCtrl', ['$q', '$rootScope', '$scope', '$state','Settings', function($q, $rootScope, $scope, $state, Settings) {
 		$scope.settings = Settings.getSettings();
 		$scope.theme = Settings.get('theme');
 
+/*		var query = data.Query.ofType("User");
+		query.find({username:username}).done(function(user) {
+			console.log('query ' ,user);
+			$scope.friends = user[0].get().friends;
+		}, function(err) {
+			console.log(err);
+			deferred.reject(err);
+		});
+*/
 		$scope.friends = [
-			{'username': 'paul'},
-			{'username': 'shirely'},
-			{'username': 'john'},
-			{'username': 'peter'}
-		]
+							{'username': 'paul', 'phone': '01034942266'},
+							{'username': 'shirely', 'phone': '01034942266'},
+							{'username': 'john', 'phone': '01034942266'},
+							{'username': 'peter', 'phone': '01034942266'}
+		];
 
+		$scope.selection = [];
+
+		$scope.toggleSelection = function (friend) {
+			var index = $scope.selection.indexOf(friend);
+
+			//is currently selected
+			if (index > -1) {
+				$scope.selection.splice(index, 1);
+			}
+			else {
+				//is newly selected
+				$scope.selection.push(friend);
+			}
+		}
+
+		$scope.invite = function() {
+			//send invitation to whose selected friends
+			angular.forEach($scope.selection, function(friend) {
+				console.log('invite function ', friend);
+			});
+
+			// $scope.selected = function(friend) {
+			// 	$scope.inviContainer.push(friend);
+			// };
+
+			// console.log('selected ', $scope.inviContainer);
+			// console.log($scope.friends);
+		}
 	}])
 }());

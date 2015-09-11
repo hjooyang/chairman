@@ -17,11 +17,17 @@
 		    	<ul class="list">
 		    		<li class="item item-check-box" ng-repeat="friend in friends" >
 		    			<label class="checkbox" >
-		    				<input type="checkbox" checklist-model="friend.username" checklist-value="send-invi"> 
+<!-- 		    				<input type="checkbox" checklist-model="checkboxModel" checklist-value="send-invi">  -->
+		    				<input type="checkbox"  ng-click="toggleSelection(friend)"> 
 		    			</label>
-		    			{{friend.username}}
+		    			{{friend.username}}   {{friend.phone}}
 		    		</li>
 		    	</ul>
+		    </div>
+		    <div>
+		    	<button class="button button-block button-calm" ng-click="invite()">
+		    		Create a room
+		    	</button>
 		    </div>
 		</div>
 

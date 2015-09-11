@@ -14,7 +14,7 @@
           if (!userInfo) {
               // user not logged in | redirect to login
               if (next.name !== "login") {
-                  // not going to #welcome, we should redirect now
+                  // not going to #main, we should redirect now
                   event.preventDefault();
                   $state.go('login');
               }
@@ -119,6 +119,11 @@
                 url: "/login",
                 templateUrl: "templates/login.html",
                 controller: 'LoginCtrl'
+        })
+        .state('join', {
+          url: "/join",
+          templateUrl: "templates/join.html",
+          controller: 'JoinCtrl'
         })
          .state('main', {
           url: '/main',

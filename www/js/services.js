@@ -139,7 +139,10 @@
             var data = IBMData.getService();
 
             // Create a new Item instance and then save it to the cloud
-            var user = data.Object.ofType("User", {"username":username, "password":password});
+            var user = data.Object.ofType("User", {"username":username, "password":password, "phone": 01034942266, "friends": [
+              {'username': 'Mike', 'phone': 01034942266},
+              {'username' : 'Ted', 'phone': 01034942266}
+            ]});
             console.log('username ', username);
 /*
             // add the Item to the Cache but we need to replace it when we
@@ -184,8 +187,7 @@
 /**
  * A Service that intialises MBaaS
  */
-.factory('InitBluemix',
-    function($rootScope, $http, $q) {
+.factory('InitBluemix', function($rootScope, $http, $q) {
 
         function init() {
 
