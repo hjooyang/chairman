@@ -1,20 +1,21 @@
 {
-	"name": "ionic-memory-game",
-	"version": "1.0.0",
-	"homepage": "https://github.com/segra/ionic-memory-game",
-	"description": "ionic Memory Game",
-	"main": "app.js",
-	"keywords": [
-		"cards",
-		"ionic",
-		"swipe"
-	],
-	"authors": [
-		"Sean Grant",
-	],
-	"license": "MIT",
-	"private": "true",
-	"devDependencies": {
-		"ionic": "driftyco/ionic-bower#1.0.0-rc.1"
-	}
+  "name": "chairman",
+  "version": "0.3.3",
+  "authors": [
+  	"IBM Korea Cloud SW"
+  ],
+  "description": "BlueList Mobile Cordova with JavaScript SDK",
+  "main": "index.html",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "bluemix"
+  ],
+  "license": "MIT",
+  "homepage": "bluemix.net",
+  "dependencies": {
+    "ibmdata": "git+https://hub.jazz.net/git/bluemixmobilesdk/ibmdata-javascript",
+    "ibmbluemix": "git+https://hub.jazz.net/git/bluemixmobilesdk/ibmbluemix-javascript"
+  }
 }

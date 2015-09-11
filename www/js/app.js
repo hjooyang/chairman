@@ -6,8 +6,8 @@
     .run(function($ionicPlatform, $rootScope, $cookieStore, $state) {
       $ionicPlatform.ready(function() {
 
-              // Check login session
-  /*    $rootScope.$on('$stateChangeStart', function (event, next, current) {
+      // Check login session
+      $rootScope.$on('$stateChangeStart', function (event, next, current) {
           var userInfo = $cookieStore.get('userInfo');
           if (!userInfo) {
               // user not logged in | redirect to login
@@ -18,10 +18,10 @@
               }
           } else if (next.name === "login") {
               event.preventDefault();
-              // $state.go('dashboard');
-              $state.go('home');
+               // $state.go('dashboard');
+             $state.go('home');
           } 
-      });*/
+      });
 
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)œ
@@ -117,6 +117,16 @@
                 url: "/login",
                 templateUrl: "templates/login.html",
                 controller: 'LoginCtrl'
+        })
+         .state('main', {
+          url: '/main',
+          templateUrl: 'templates/main.html',
+          controller: 'MainCtrl'
+        })
+        .state('room-creation', {
+          url: '/room-creation',
+          templateUrl: 'templates/room-creation.html',
+          controller: 'RoomCtrl'
         });
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/login');
