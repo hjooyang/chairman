@@ -2,11 +2,12 @@
   <div class="buttons">
     <button class="button icon ion-home" ui-sref="home"></button>
   </div>
-  <h1 class="title">ionic memory</h1>
-  <div class="buttons">
+  <h1 class="title">Chairman Game</h1>
+  <!-- <div class="buttons">
     <button class="button icon ion-information" ng-click="settings()"></button>
     <button class="button icon ion-gear-b" ng-click="settings()"></button>
-  </div>
+  </div> -->
+  <button class="button icon ion-plus-circled" ng-click="addFriends()" ng-show="location == '/room-creation'"></button>
 </ion-nav-bar>
 
 <ion-nav-view name="appContent" animation="slide-left-right"></ion-nav-view>

@@ -64,10 +64,12 @@
       <div class="buttons">
         <button class="button button-clear icon ion-home" ng-click="checkGame()"></button>
       </div>
-      <h1 class="title">ionic memory</h1>
+      <h1 class="title">Chairman Game</h1>
      <div class="buttons">
-        <button class="button button-clear icon ion-information-circled" ng-click="showInfo()"></button>
-        <button class="button button-clear icon ion-gear-b" ng-click="showSettings()"></button>
+        <!-- <button class="button button-clear icon ion-information-circled" ng-click="showInfo()"></button>
+        <button class="button button-clear icon ion-gear-b" ng-click="showSettings()"></button> -->
+
+      <button class="button icon ion-plus-circled"  ng-hide="location != '/room-creation'"></button>
         <button class="button button-clear" ng-click="logout()" >Logout</button>
       </div>
     </ion-nav-bar>

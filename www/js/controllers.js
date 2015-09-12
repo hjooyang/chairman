@@ -328,6 +328,7 @@
 			angular.forEach($scope.selection, function(friend) {
 				console.log('invite function ', friend);
 			});
+			
 
 			// $scope.selected = function(friend) {
 			// 	$scope.inviContainer.push(friend);
